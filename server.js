@@ -3,7 +3,12 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+// ✅ Use ONLY this CORS config
+app.use(cors({
+  origin: "https://pro-client-crm.netlify.app",
+  credentials: true
+}));
+
 app.use(express.json());
 
 const userRoutes = require("./routes/userRoutes");
