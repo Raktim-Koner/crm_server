@@ -6,11 +6,15 @@ const app = express();
 // ✅ Use ONLY this CORS config
 app.use(cors({
   origin: "https://pro-client-crm.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
-app.use(express.json());
+// ✅ Handle preflight manually (VERY IMPORTANT)
+app.options("*", cors());
 
+app.use(express.json());
 const userRoutes = require("./routes/userRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const accountRoutes = require("./routes/accountRoutes");
