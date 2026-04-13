@@ -3,19 +3,6 @@ const cors = require("cors");
 
 const app = express();
 
-// ✅ FIX CORS (manual + reliable for Vercel)
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://pro-client-crm.netlify.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200); // ✅ very important
-  }
-
-  next();
-});
 
 // ✅ optional (safe to keep)
 app.use(cors());
@@ -37,4 +24,10 @@ app.use("/", dealRoutes);
 app.use("/", projectRoutes);
 app.use("/", taskRoutes);
 
-module.exports = app;
+const PORT = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
