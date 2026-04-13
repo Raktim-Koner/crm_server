@@ -6,8 +6,7 @@ const app = express();
 // ✅ Use ONLY this CORS config
 app.use(cors({
   origin: "https://pro-client-crm.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+
   credentials: true
 }));
 
