@@ -3,17 +3,26 @@ const cors = require("cors");
 
 const app = express();
 
-// ✅ Use ONLY this CORS config
-app.use(cors({
-  origin: "https://pro-client-crm.netlify.app",
+// ✅ FIX CORS (manual + reliable for Vercel)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://pro-client-crm.netlify.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
 
-  credentials: true
-}));
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // ✅ very important
+  }
 
-// ✅ Handle preflight manually (VERY IMPORTANT)
-app.options("*", cors());
+  next();
+});
+
+// ✅ optional (safe to keep)
+app.use(cors());
 
 app.use(express.json());
+
+// routes
 const userRoutes = require("./routes/userRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const accountRoutes = require("./routes/accountRoutes");
