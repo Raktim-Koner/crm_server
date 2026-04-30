@@ -3,13 +3,9 @@ const cors = require("cors");
 
 const app = express();
 
-
-// ✅ optional (safe to keep)
 app.use(cors());
-
 app.use(express.json());
 
-// routes
 const userRoutes = require("./routes/userRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const accountRoutes = require("./routes/accountRoutes");
@@ -24,10 +20,6 @@ app.use("/", dealRoutes);
 app.use("/", projectRoutes);
 app.use("/", taskRoutes);
 
-const PORT = process.env.PORT || 5000;
-
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-}
+app.listen(5000, () => {
+  console.log("Server running on http://localhost:5000");
+});
