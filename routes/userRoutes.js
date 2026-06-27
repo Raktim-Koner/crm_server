@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const sqlite3 = require("sqlite3").verbose();
+// const sqlite3 = require("sqlite3").verbose(); //not requered 
+const db = require("../db");
 const sendEmail = require("../utils/sendEmail"); // 👈 add this
 
 // 🔥 Connect to SQLite DB
-const db = new sqlite3.Database("./database.db");
+// const db = new sqlite3.Database("./database.db"); // not requered now crm.db is working
 
 
 // ======================================================
